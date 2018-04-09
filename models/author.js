@@ -26,6 +26,16 @@ AuthorSchema
   return '/catalog/author/' + this._id;
 });
 
+// Virtual for author lifespan
+AuthorSchema
+.virtual('lifespan')
+.get(function () {
+  var thebirth = this.date_of_birth ? moment(this.date_of_birth).format('MMMM Do, YYYY') : '';
+  var thedeath = this.date_of_death ? moment(this.date_of_death).format('MMMM Do, YYYY') : '';
+  var thelifespan = new String(thebirth + " - " + thedeath);
+  return  thelifespan;
+});
+
 // Virtual for reformatting birth date
 AuthorSchema
 .virtual('dob_formatted')
